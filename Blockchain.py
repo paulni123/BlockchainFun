@@ -9,7 +9,6 @@ class Blockchain(object):
         self.current_transactions = []
 
     def new_block(self, proof, previous_hash=None):
-        # Creates a new Block and adds it to the chain
         
         block = {
             'index': len(self.chain) + 1,
@@ -24,7 +23,6 @@ class Blockchain(object):
         return block
     
     def new_transaction(self, sender, recipient, amount):
-        # Adds a new transaction to the list of transactions
         
         self.current_transactions.append({
             'sender': sender,
@@ -49,15 +47,13 @@ class Blockchain(object):
         guess_hash = hashlib.sha256(guess).hexdigest()
         return guess[:4] == "0000"
     
+    @property
+    def last_block(self):
+        
+        return self.chain[-1]
+
     @staticmethod
     def hash(block):
-        # Hashes a Block
 
         block_string = json.dumps(block, sort_keys=True).encode()
         return hashlib.sha256(block_string).hexdigest()
-
-    @property
-    def last_block(self):
-        # Returns the last Block in the chain
-        
-        return self.chain[-1]
